@@ -1,9 +1,10 @@
-FROM node:8.12-stretch
+FROM node:8.17.0-buster
 
-RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
-RUN apt-get -y update && \
-    apt-get -t stretch-backports install -y ansible && \
-    apt-get clean
+RUN echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' > /etc/apt/sources.list.d/ansible.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 && \
+    apt -y update && \
+    apt install -y ansible && \
+    apt clean
 
 RUN git clone https://github.com/node-ci/nci-ansible-ui-quick-setup /srv/nci-ansible-ui && \
     cd /srv/nci-ansible-ui && \
